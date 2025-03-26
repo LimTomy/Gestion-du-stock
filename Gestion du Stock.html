@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion du Stock</title>
+
+    <!-- Liens Font Awesome pour les icônes -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <!-- Liens du Fichier CSS -->
+    <link rel="stylesheet" href="Gestion du Stock.css">
+</head>
+
+<body>
+    <!-- En-tête de la page -->
+    <header class="en-tete">
+        <div class="conteneur-marque">
+            <div class="logo"><i class="fa-duotone fa-solid fa-leaf"></i></div>
+            <div class="nom-entreprise">Fru<span class="doubleTon">IT</span></div>
+        </div>
+    </header>
+
+    <!-- Conteneur principal de la page -->
+    <div class="conteneur-principal">
+        <!-- Zone de saisie pour ajouter des fruits au stock -->
+        <div class="zone-saisie" id="zone-saisie">
+            <div class="zone-titre">
+                <h2>Mise en stock des Fruits</h2>
+            </div>
+            <div class="zone-champs">
+                <!-- Champ pour saisir le nom du fruit -->
+                <div class="champ-saisie">
+                    <input type="text" id="champ-fruit" title="Saisir le nom du fruit à stocker" placeholder="Nom du fruit">
+                </div>
+                <!-- Champ pour saisir la quantité -->
+                <div class="champ-saisie">
+                    <input type="number" id="champ-quantite" title="Saisir la quantité de fruit à stocker" placeholder="Quantité">
+                </div>
+            </div>
+            
+            <!-- Bouton pour valider la saisie -->
+            <div class="conteneur-button">
+                <button class="bouton-validation" type="button" id="bouton-valider">Valider</button>
+            </div>
+        </div>
+
+        <!-- Zone pour afficher les détails de la mise en stock en cours -->
+         <!-- Sera en display none -->
+        <div class="zone-details" id="zone-details">
+            <h2>Détails de la mise en Stock</h2>
+            <!-- Affichage du nom du fruit stocker presentement -->
+            <span id="sortie-Nom" title="Affichage du nom du fruit stocker presentement"></span>
+            <!-- Affichage de la quantité stocker presentement -->
+            <span id="sortie-Qte" title="Affichage de la quantité stocker presentement"></span>
+            
+            <!-- Zone pour afficher les détails du stock -->
+            <div class="zone-stock" id="zone-stock">
+                <h2>Détails du Stock</h2>
+                <div class="liste-fruits" id="liste-fruits">
+                    <!-- Liste déroulante pour rechercher dans le stock -->
+                    <select id="selecteur-fruit" title="Rechercher dans le stock">
+                        <option value="">Rechercher dans le stock ?</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Affichage du résultat de la recherche -->
+            <span class="resultat-recherche" id="resultat-recherche" title="Affichage du stock total de la recherche"></span>
+        </div>
+    </div>
+</body>
+</html>
