@@ -27,24 +27,32 @@
         <!-- Zone de saisie pour ajouter des fruits au stock -->
         <div class="zone-saisie" id="zone-saisie">
             <div class="zone-titre">
-                <h2>Mise en stock des Fruits</h2>
+                <h2>Ajout de Fruits en stock</h2>
             </div>
             <div class="zone-champs">
+                 <!-- Champ pour saisir id -->
+                 <div class="champ-saisie">
+                    <input type="text" id="champ-id" title="Saisir le nom du fruit à stocker" placeholder="id">
+                </div>
                 <!-- Champ pour saisir le nom du fruit -->
                 <div class="champ-saisie">
                     <input type="text" id="champ-fruit" title="Saisir le nom du fruit à stocker" placeholder="Nom du fruit">
                 </div>
                 <!-- Champ pour saisir la quantité -->
                 <div class="champ-saisie">
+                    <!-- <i class="fa-solid fa-basket-shopping"></i> -->
                     <input type="number" id="champ-quantite" title="Saisir la quantité de fruit à stocker" placeholder="Quantité">
                 </div>
             </div>
-            
             <!-- Bouton pour valider la saisie -->
             <div class="conteneur-button">
-                <button class="bouton-validation" type="button" id="bouton-valider">Valider</button>
+                <button class="bouton-validation" type="button" id="bouton-valider">Ajouter</button>
             </div>
         </div>
+
+        
+
+        
 
         <!-- Zone pour afficher les détails de la mise en stock en cours -->
          <!-- Sera en display none -->
@@ -67,7 +75,38 @@
             </div>
             <!-- Affichage du résultat de la recherche -->
             <span class="resultat-recherche" id="resultat-recherche" title="Affichage du stock total de la recherche"></span>
+            <div class="conteneur-button">
+                <button class="bouton-validation" type="button" id="bouton-vider">Vider</button>
+            </div>
+        </div>
+
+        <!-- Zone de saisie pour ajouter des fruits au stock -->
+        <div class="zone-saisie" id="zone-saisie">
+            <div class="zone-titre">
+                <h2>Retrait de fruits en stock</h2>
+            </div>
+            <div class="zone-champs">
+                 <!-- Champ pour saisir id -->
+                 <div class="champ-saisie">
+                    <input type="text" id="champ-id" title="Saisir le nom du fruit à stocker" placeholder="id">
+                </div>
+                <!-- Champ pour saisir le nom du fruit -->
+                <div class="champ-saisie">
+                    <input type="text" id="champ-fruit" title="Saisir le nom du fruit à stocker" placeholder="Nom du fruit">
+                </div>
+                <!-- Champ pour saisir la quantité -->
+                <div class="champ-saisie">
+                    <!-- <i class="fa-solid fa-basket-shopping"></i> -->
+                    <input type="number" id="champ-quantite" title="Saisir la quantité de fruit à stocker" placeholder="Quantité">
+                </div>
+            </div>
+            <!-- Bouton pour valider la saisie -->
+            <div class="conteneur-button">
+                <button class="bouton-validation" type="button" id="bouton-valider">Retirer</button>
+            </div>
         </div>
     </div>
+    <script src="jquery-3.7.1.min"></script>
+    <script src="GestionTest.js"></script>
 </body>
 </html>
