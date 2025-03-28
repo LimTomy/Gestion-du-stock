@@ -27,13 +27,13 @@
         <!-- Zone de saisie pour ajouter des fruits au stock -->
         <div class="zone-saisie" id="zone-saisie">
             <div class="zone-titre">
-                <h2>Ajout de Fruits en stock</h2>
+                <h2>Ajout de fruits en stock</h2>
             </div>
             <div class="zone-champs">
                  <!-- Champ pour saisir id -->
                  <div class="champ-saisie">
                     <i class="fa-solid fa-hashtag"></i>
-                    <input type="text" id="champ-id" title="Saisir l'ID du fruit à stocker" placeholder="id">
+                    <input type="text" id="champ-id" title="Saisir l'ID du fruit à stocker" placeholder="ID">
                 </div>
                 <!-- Champ pour saisir le nom du fruit -->
                 <div class="champ-saisie">
@@ -59,15 +59,20 @@
         <!-- Zone pour afficher les détails de la mise en stock en cours -->
          <!-- Sera en display none -->
         <div class="zone-details" id="zone-details">
-            <h2>Détails de la mise en Stock</h2>
+            <h2>Détails de la mise en stock</h2>
             <!-- Affichage du nom du fruit stocker presentement -->
-            <span id="sortie-Nom" title="Affichage du nom du fruit stocker presentement"></span>
+            <span id="sortie-Nom" class="span-details" title="Affichage du nom du fruit stocker presentement">
+                <i class="fa-solid fa-apple-whole"></i>
+            </span>
             <!-- Affichage de la quantité stocker presentement -->
-            <span id="sortie-Qte" title="Affichage de la quantité stocker presentement"></span>
+             
+            <span id="sortie-Qte" class="span-details" title="Affichage de la quantité stocker presentement">
+                <i class="fa-solid fa-basket-shopping"></i>
+            </span>
             
             <!-- Zone pour afficher les détails du stock -->
             <div class="zone-stock" id="zone-stock">
-                <h2>Détails du Stock</h2>
+                <h2>Détails du stock</h2>
                 <div class="liste-fruits" id="liste-fruits">
                     <!-- Liste déroulante pour rechercher dans le stock -->
                     <select id="selecteur-fruit" title="Rechercher dans le stock">
@@ -76,9 +81,11 @@
                 </div>
             </div>
             <!-- Affichage du résultat de la recherche -->
-            <span class="resultat-recherche" id="resultat-recherche" title="Affichage du stock total de la recherche"></span>
+            <span id="resultat-recherche" class="span-details" title="Affichage du stock total de la recherche">
+                <i class="fa-solid fa-warehouse"></i>
+            </span>
             <div class="conteneur-button">
-                <button class="bouton" type="button" id="bouton-vider">Vider</button>
+                <button class="bouton b-details" type="button" id="bouton-vider">Vider</button>
             </div>
         </div>
 
@@ -91,7 +98,7 @@
                  <!-- Champ pour saisir id -->
                  <div class="champ-saisie input-retrait">
                     <i class="fa-solid fa-hashtag i-retrait"></i>
-                    <input type="text" id="champ-id" title="Saisir l'ID nom du fruit à retirer du stock" placeholder="id">
+                    <input type="text" id="champ-id" title="Saisir l'ID nom du fruit à retirer du stock" placeholder="ID">
                 </div>
                 <!-- Champ pour saisir le nom du fruit -->
                 <div class="champ-saisie input-retrait">

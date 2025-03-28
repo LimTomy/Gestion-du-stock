@@ -5,6 +5,7 @@
     --couleur-fond: #ecf0f1;
     --couleur-texte: #333;
     --couleur-retrait: #e74c3c;
+    --couleur-pour-inversion: #d3c1af
 }
 
 /* Styles globaux */
@@ -18,7 +19,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, var(--couleur-principale), var(--couleur-secondaire));
+    background: var(--couleur-principale);
     color: var(--couleur-texte);
     display: flex;
     flex-direction: column;
@@ -39,7 +40,7 @@ body::before {
     background: url('./Images/bg_fruits.jpg') no-repeat center center;
     background-size: cover; 
     z-index: -1; 
-    opacity: 0.05; 
+    opacity: 0.1; 
 }
 
 /* En-tête */
@@ -59,13 +60,12 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
 }
 
 .logo {
     width: 50px;
     height: 50px;
-    background-color: var(--couleur-secondaire);
+    background-color: rgb(46, 204, 113,0.3);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -89,13 +89,26 @@ body::before {
     font-size: 2rem;
     font-weight: bold;
     color: var(--couleur-principale);
-    padding: 0.5rem 1rem;
+    animation: secoue 5s infinite;
+
+}
+
+@keyframes secoue {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    25% {
+        transform: rotate(-3deg);
+    }
+    75% {
+        transform: rotate(3deg);
+    }
 }
 
 .doubleTon {
     padding: 0;
     font-size: 2.1rem;
-    color: var(--couleur-secondaire);
+    color:rgb(46, 204, 113,0.6);
     background-color: transparent;
 
 
@@ -179,17 +192,36 @@ body::before {
 #selecteur-fruit {
     width: 100%;
     padding: 12px;
-    border: 2px solid var(--couleur-secondaire);
+    border: 2px solid var(--couleur-pour-inversion);
     border-radius: 8px;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     margin-top: 1rem;
     text-align: center;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    color: black;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none; 
+    background: var(--couleur-pour-inversion) url('./Images/chevron-down-solid.svg') no-repeat right center;
+    background-size: 1.5rem;
+    background-position: calc(100% - 1rem) center;
+    filter: invert(1);
+    font-weight: bold;
+
 }
 
 #selecteur-fruit:focus {
-    border-color: var(--couleur-principale);
-    box-shadow: 0 0 0 3px rgba(52, 219, 113, 0.2);
+    border-color: var(--couleur-pour-inversion);
+    box-shadow: 0 0 0 3px rgb(211, 193, 175, 0.2);
+    outline: white;
+}
+
+.b-details {
+    background-color: var(--couleur-principale) !important; 
+}
+
+.b-details:hover {
+    box-shadow: 0 0 0 3px rgba(52, 119, 219, 0.2) !important;
 }
 
 /* Zone des champs */
@@ -207,8 +239,33 @@ span {
     width: 100%;
     padding: 12px;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 1.5rem;
     margin-top: 0.5rem;
+}
+
+.span-details {
+    background-color: white;
+    height: 4rem;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.span-details i {
+    position: absolute;
+    right: 0;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    color: var(--couleur-principale);
+    animation: icon 5s infinite linear;
+    transform: translateY(-50%);
+    top: 50%;
+
 }
 
 /* Zone du stock */
@@ -297,6 +354,10 @@ h2 {
 
 /* Media Queries pour le responsive */
 @media (max-width: 1024px) {
+    *{
+        font-size: 0.9rem;
+    }
+    
     body { 
         overflow-y: auto;
         height: auto;
@@ -304,16 +365,24 @@ h2 {
 
     .conteneur-principal {
         flex-direction: column;
-        padding: 40px;
+        padding: 10px;
         gap: 2rem;
     }
 
     .zone-saisie, .zone-details {
-        width: 80%;
+        width: 100%;
     }
 
     .nom-entreprise {
-        font-size: 1.5rem;
+        font-size: 1.5rem ;
+    }
+
+    #selecteur-fruit {
+        font-size: 1.2rem;
+        background-size: 1.2rem;
+        text-align: left;
+        background-position: calc(100% - 0.7rem) center;
+
     }
 
     .doubleTon {
@@ -326,6 +395,8 @@ h2 {
         padding: 10px 16px;
     }
 }
+
+
 
 
 
