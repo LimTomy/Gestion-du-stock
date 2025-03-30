@@ -6,43 +6,38 @@ $("#bouton-valider").on("click",function(){
     console.log(nom)
     let qt=$("#champ-quantite").val();
    
-    
-   
     addFruit({id:`${id}`,nom:`${nom}`,quantite:`${qt}`},qt);
        
     /*Interface et affichage Output*/
 
-   //id element p 2
+   //id element p 1
     $("#sortie-Nom").text(function() {
         return `Nom : ${nom}`;
     });
 
-   //id element p 3
+   //id element p 2
     $("#sortie-Qte").text(function() {
         return `quantité : ${qt}`;
     });
-  // Récupérer la liste depuis le localStorage
- var storedNames = JSON.parse(localStorage.getItem('fruit'));
- var option = document.createElement("option");
- 
- 
- // Vérifier si des données sont présentes dans le localStorage
- if (storedNames && storedNames.length > 0) {
-     // Boucler sur chaque élément de la liste et l'ajouter à option
-     storedNames.forEach(function(name) {
-     var x = document.getElementById("selecteur-fruit");
-     option.text = `nom : ${name.nom}  quantité : ${name.quantite} `;
-     x.appendChild(option);
-     });
-      
-     
- };
 
-    
-});
+    //Vider le select
+    const selectElement=document.getElementById("selecteur-fruit")
+    selectElement.innerHTML=''
 
- 
- 
+    //Récupérer la liste depuis le localStorage
+    var storedNames = JSON.parse(localStorage.getItem('fruit'));
+
+    // Vérifier si des données sont présentes dans le localStorage
+    if (storedNames && storedNames.length > 0) {
+      // Boucler sur chaque élément de la liste et l'ajouter à option
+      storedNames.forEach(function(name) {
+        var option = document.createElement("option");
+        var x = document.getElementById("selecteur-fruit");
+        option.text = `nom : ${name.nom}  quantité : ${name.quantite} `;
+        x.appendChild(option);
+      }); 
+    };
+ }); 
 
 /*Attache evenement de changement à la selection qui récupère le texte de chaque option sélectionnée et les écrit dans span (id resultat-recherche).Il déclanche ensuite l'événement pour le texte initial*/
 $( "select" ).on("change", function() {
@@ -54,18 +49,30 @@ $( "select" ).on("change", function() {
   } )
   .trigger( "change" );
 
-  let x=document.getElementById("selecteur-fruit");
-  x.innerhtml="<option value=''>Recherche dans le stock ?</option>";
-
-
-  $("#bouton-retrait").on("click",function(){
-    
+$("#bouton-retrait").on("click",function(){
     let qt_rt=$("#champ-quantite-retrait").val();
     let id=$("#champ-id-retrait").val();
     console.log(id)
     retireStock({id:`${id}`},qt_rt)
-    
-  });
+
+    //Vider le select
+    const selectElement=document.getElementById("selecteur-fruit")
+    selectElement.innerHTML=''
+
+    //Récupérer la liste depuis le localStorage
+    var storedNames = JSON.parse(localStorage.getItem('fruit'));
+
+    // Vérifier si des données sont présentes dans le localStorage
+    if (storedNames && storedNames.length > 0) {
+      // Boucler sur chaque élément de la liste et l'ajouter à option
+      storedNames.forEach(function(name) {
+        var option = document.createElement("option");
+        var x = document.getElementById("selecteur-fruit");
+        option.text = `nom : ${name.nom}  quantité : ${name.quantite} `;
+        x.appendChild(option);
+      }); 
+    };
+});
 
        
 /*API de stockage web nous permet de stocker des données localement côté client.
@@ -81,8 +88,6 @@ function saveFruit(fruit){
    et met à jour la valeur si la clé existe déja.le storage prend uniquement en charge le stockage et la récupération des chaines pour se faire je sérialise la variable composite a l'aide de JSON.stringify(). */
    localStorage.setItem("fruit",JSON.stringify(fruit));
  }
-
-
 
  /*Fonction getFruit() renvoie la valeur de cette clé fruit  */
  function getFruit(){
@@ -120,16 +125,5 @@ function saveFruit(fruit){
     if(rechFruit!=undefined){
         rechFruit.quantite=Math.floor(rechFruit.quantite)-Math.floor(qt);
     }
-    saveFruit(fruit);     
-           
+    saveFruit(fruit);           
  }
-
- function filtrefruit(fruit){
-    let liste=getFruit();
-    /*La méthode filter() des instance de tableau créer une copie superficielle d'une partie d'un tabaleau donnée,filtrée jusqu'aux seuls éléments du tableau donné qui réussissent le text implémenté par la fonction fournie.*/
-    let supp=liste.filter(l=>l.id!=fruit.id)
-    saveFruit(fruit)
- }
-
-
-
