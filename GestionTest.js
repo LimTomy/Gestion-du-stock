@@ -1,130 +1,138 @@
-window.onload = function ajoutFruit() {
-    // Récupérer la liste depuis le localStorage
-    var storedNames = JSON.parse(localStorage.getItem('fruit'));
 
-    // Vider le contenu de l'élément select pour éviter les doublons
-    var x = document.getElementById("selecteur-fruit");
-    x.innerHTML = "<option value=''>Rechercher dans le stock ?</option>";
 
-    // Vérifier si des données sont présentes dans le localStorage
-    if (storedNames && storedNames.length > 0) {
-        // Boucler sur chaque élément de la liste et l'ajouter à l'élément select
-        storedNames.forEach(function(name) {
-            var x = document.getElementById("selecteur-fruit");
-            var option = document.createElement("option");
-            option.text = `nom : ${name.nom}  quantité : ${name.quantite}`;
-            x.appendChild(option);
+    // Au chargement de la page
+    document.addEventListener("DOMContentLoaded", () => {
+        const boutonAjouter = document.getElementById("bouton-valider");
+        const boutonRetirer = document.getElementById("bouton-retrait");
+        const boutonVider = document.getElementById("bouton-vider");
+        const selecteurFruit = document.getElementById("selecteur-fruit");
+        const resultatRecherche = document.getElementById("resultat-recherche");
+        const sortieNom = document.getElementById("sortie-Nom");
+        const sortieQuantite = document.getElementById("sortie-Qte");
+
+        // Fonction pour récupérer le stock depuis localStorage
+        const recupererStock = () => JSON.parse(localStorage.getItem("stock")) || {};
+
+        // Fonction pour sauvegarder le stock dans localStorage
+        const sauvegarderStock = (stock) => localStorage.setItem("stock", JSON.stringify(stock));
+
+        // Fonction pour mettre à jour l'affichage du stock
+        const mettreAJourAffichageStock = () => {
+            const stock = recupererStock();
+            selecteurFruit.innerHTML = '<option value="">Rechercher dans le stock ?</option>';
+            for (const [fruit, quantite] of Object.entries(stock)) {
+                const option = document.createElement("option");
+                option.value = fruit;
+                option.textContent = `${fruit} (${quantite})`;
+                selecteurFruit.appendChild(option);
+            }
+        };
+
+        // Ajouter un fruit au stock
+        boutonAjouter.addEventListener("click", () => {
+            // const id = document.getElementById("champ-id").value.trim();
+            const fruit = document.getElementById("champ-fruit").value.trim();
+            const quantite = parseInt(document.getElementById("champ-quantite").value.trim(), 10);
+
+            if (fruit && quantite > 0) {
+                const stock = recupererStock();
+                stock[fruit] = (stock[fruit] || 0) + quantite;
+                sauvegarderStock(stock);
+
+
+                sortieNom.textContent = `Fruit : ${fruit}`;
+                sortieQuantite.textContent = `Quantité : + ${quantite}`;
+                resultatRecherche.textContent = `Stock total de ${fruit} : ${stock[fruit]}`;
+
+                mettreAJourAffichageStock();
+
+                // Réinitialise les champs
+                document.getElementById("champ-fruit").value = "";
+                document.getElementById("champ-quantite").value = "";
+
+                alert("Fruit ajouté au stock !");
+            } else {
+                alert("Veuillez remplir tous les champs correctement.");
+            }
         });
-    }
 
-    const btnVider = document.getElementById("bouton-vider");
-    btnVider.addEventListener('click', () => {
-        localStorage.clear();
-        ajoutFruit();
+        // Retirer un fruit du stock
+        boutonRetirer.addEventListener("click", () => {
+            // const id = document.getElementById("champ-id-retrait").value.trim();
+            const fruit = document.getElementById("champ-fruit-retrait").value.trim();
+            const quantite = parseInt(document.getElementById("champ-quantite-retrait").value.trim(), 10);
+
+            if (fruit && quantite > 0) {
+                const stock = recupererStock();
+                if (stock[fruit] && stock[fruit] >= quantite) {
+                    stock[fruit] -= quantite;
+                    if (stock[fruit] === 0) delete stock[fruit];
+                    sauvegarderStock(stock);
+
+                    sortieNom.textContent = `Fruit : ${fruit} `;
+                    // pour afficher l'icone meme si texContent change
+                    const iconNom = document.createElement("i");
+                    iconNom.className = "fa-solid fa-apple-whole";
+                    sortieNom.appendChild(iconNom);
+                    
+                    sortieQuantite.textContent = `Quantité : -${quantite} `;
+                    // pour afficher l'icone meme si texContent change
+                    const iconQuantite = document.createElement("i");
+                    iconQuantite.className = "fa-solid fa-basket-shopping";
+                    sortieQuantite.appendChild(iconQuantite);
+                    
+                    resultatRecherche.textContent = `Stock total de ${fruit} : ${stock[fruit]} `;
+                    // pour afficher l'icone meme si texContent change
+                    const iconStock = document.createElement("i");
+                    iconStock.className = "fa-solid fa-warehouse";
+                    resultatRecherche.appendChild(iconStock);
+                    
+
+
+                    // Réinitialise les champs
+                    document.getElementById("champ-fruit-retrait").value = "";
+                    document.getElementById("champ-quantite-retrait").value = "";
+
+                    alert("Fruit retiré du stock !");
+                    mettreAJourAffichageStock();
+                } else {
+                    alert("Quantité insuffisante ou fruit non trouvé.");
+                }
+            } else {
+                alert("Veuillez remplir tous les champs correctement.");
+            }
+        });
+
+        // btn vider le stock
+        boutonVider.addEventListener("click", () => {
+            if (confirm("Êtes-vous sûr de vouloir vider le stock ?")) {
+                localStorage.removeItem("stock");
+                mettreAJourAffichageStock();
+                alert("Stock vidé !");
+            }
+        });
+
+        // Afficher le résultat de la selection dans le selecteur
+        selecteurFruit.addEventListener("change", () => {
+            const fruit = selecteurFruit.value;
+            const stock = recupererStock();
+            if (fruit) {
+                resultatRecherche.textContent = `Stock total de ${fruit} : ${stock[fruit]}`;
+                document.getElementById("champ-fruit").value = fruit;
+                document.getElementById("champ-fruit-retrait").value = fruit;
+                
+                sortieNom.innerHTML = `<i class="fa-solid fa-apple-whole" ></i>`;
+                sortieQuantite.innerHTML = `<i class="fa-solid fa-basket-shopping" ></i>`;
+            } else {
+                resultatRecherche.textContent = "";
+                document.getElementById("champ-fruit").value = "";
+                document.getElementById("champ-fruit-retrait").value = "";
+                sortieNom.innerHTML = `<i class="fa-solid fa-apple-whole" ></i>`;
+                sortieQuantite.innerHTML = `<i class="fa-solid fa-basket-shopping" ></i>`;
+                resultatRecherche.innerHTML = `<i class="fa-solid fa-warehouse" ></i>`;
+            }
+        });
+
+        // Initialiser l'affichage du stock
+        mettreAJourAffichageStock();
     });
-
-//Id grace a la recherche du nom
-    document.getElementById("champ-fruit").addEventListener("input", function () {
-        const storedNames = JSON.parse(localStorage.getItem('fruit'));
-        const fruitTrouver = storedNames.find(f => f.nom === this.value);
-        if (fruitTrouver) {
-            document.getElementById("champ-id").value = fruitTrouver.id;
-        }
-    });
-
-
-
-    
-    $("#bouton-valider").on("click",function(){
-        let id=$("#champ-id").val();
-        console.log(id)
-        let nom=$("#champ-fruit").val();
-        console.log(nom)
-        let qt=$("#champ-quantite").val();
-    
-        addFruit({id:`${id}`,nom:`${nom}`,quantite:`${qt}`});
-        
-        /*Interface et affichage Output*/
-
-        /*id element p 1
-        $("").text(function() {
-            return `ID: ${id}`;
-        });*/
-
-        //id element p 2
-        if ($("#champ-fruit").text() && $("#champ-quantite").text !== "") {
-
-            $("#champ-fruit").text(function() {
-                return `Nom : ${nom}`;
-            });
-            $("#champ-quantite").text(function() {
-                return `Quantité: ${qt}`;
-            });
-        } else {
-            $("#champ-fruit").text(function() {
-                return `Vous n'avez pas encore ajouté de fruit.`;
-            });
-            $("#champ-quantite").text(function() {
-                return `Vous n'avez pas encore ajouté de fruit.`;
-            });
-            
-        }   
-
-        $('selecteur-fruit').remove(); 
-        ajoutFruit();   
-    });
-
-
-       
-
-    /*API de stockage web nous permet de stocker des données localement côté client.
-    taille maximale doit être inférieure ou égale à 5Mo
-    Les données ne sont ni transmises ni renvoyées au serveur à un moment donnée si vous utilisez API de stockage WEB.
-    Il sera toujours disponible localement dans un fichier. */
-
-    //Fonction saveFruit() sauvegarde sur la clé fruit.
-    function saveFruit(fruit){
-        /*La sérialisation est une opération qui consiste à transformer une variable composite(objet,tableau) en une variable scalaire(chaine de caractère)
-        En js, il est possible de sérialiser des objets au format JSON(Methode stringify) */
-        /*La méthode setItem() de l'interface Storage permet de passe la clé(fruit)/valeur(enregistrement fruit),les ajoute a l'emplacement de stockage,
-        et met à jour la valeur si la clé existe déja.le storage prend uniquement en charge le stockage et la récupération des chaines pour se faire je sérialise la variable composite a l'aide de JSON.stringify(). */
-        localStorage.setItem("fruit",JSON.stringify(fruit));
-    }
-
-
-
-    /*Fonction getFruit() renvoie la valeur de cette clé fruit  */
-    function getFruit(){
-        /*La méthode getItem() avec la clé(fruit),renvoie la valeur de cette clé,ou si la clé n'existe pas,dans l'objet dnné renvoie null */
-        let fruit=localStorage.getItem("fruit");
-        if(fruit==null){
-            //revoie un tableau vide
-            return [];
-        }else{
-            /*JSON.parse() analyse une chaine de caractères JSON et construit la valeur JavaScript ou l'objet décrit par cette chaine.*/
-            return JSON.parse(fruit);
-        }
-    }
-
-    //focntion addFruit ajoute un fruit
-    function addFruit(liste){
-        let fruit=getFruit();
-        /*rechFruit par find qui renvoie la valeur du premier élément trouvé dans le tableau qui respecte la condition donnée par la fonction de test passé en argument.Sinon,la valeur undefined est renvoyée. */
-        let rechFruit=fruit.find(l=>l.id==liste.id)
-        if(rechFruit!=undefined){
-            return "Fruit dans la liste"
-        }else{
-            //ajouter fruit dans la clé fruit
-            fruit.push(liste); 
-        }
-        //savegarde sur la clé fruit
-        saveFruit(fruit);
-        //revoie la valeur de la clé fruit
-        return localStorage.getItem("fruit")
-    }
-
-    /*let m=document.getElementById("selecteur-fruit")
-    m.addEventListener('change',()=>{
-    
-    });*/
-};
