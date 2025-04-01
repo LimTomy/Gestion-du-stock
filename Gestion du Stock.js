@@ -69,31 +69,13 @@ class Stock{
   };
 
 
-/* recherche(valeurInput){
-  inputValeur=valeurInput;
-  /*La méthode statique Object.keys() renvoie un tableau de noms de propriétés énumérables à clé de chaîne de caractères d'un objet donné 
-  const rec=Object.keys(JSON.parse(localStorage.getItem("fruit")));
-  //La methode includes() des instances de tableau déterminer si un inclut une certaine valeur parmi ses participations,en retournant ou selon le cas.(true false)
-  //La méthode filter() des instances de tableau crée une une copie superficielle d'une parie d'un tableau donné,jusqu'aux seuls éléments du tableau donné qui réussissent le test implémenté par la fonction fournie.
-  const result = rec.filter((e) => e.includes(`${inputValue}`));
-  let a = JSON.stringify(result);
-  let p = JSON.parse(a);
-  let t = [p];
-  u = [];
-  t.forEach(function(z) { 
-      u.push(z);   
-  });
-  u.forEach(function(z) {
-    let index = 0;
-    while (index < z.length) {
-      let suggestions = document.getElementById("suggestion");
-      p = document.createElement("p");
-      p.textContent = `${z[index]}`;
-      let testID = suggestions.appendChild(p);
-      index++;
-    };
-  }); 
- }*/
+  recherche(valeurInput){
+    let inputValeur=valeurInput;
+    const rec=this.fruit;
+    let a=rec.map(e=>e.nom)
+    const result = a.filter((e) => e.includes(`${valeurInput}`));
+    console.log(result)
+  }
 }
 
 //Au chargement de l'application 
