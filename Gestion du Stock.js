@@ -13,8 +13,8 @@ class Stock{
    }else{
        /*JSON.parse() analyse une chaine de caractères JSON et construit la valeur JavaScript ou l'objet décrit par cette chaine.*/
        this.fruit=JSON.parse(fruit);
-   }
-  }
+   };
+  };
 
   //Methode savegardeFruit() sauvegarde sur la clé fruit.
   sauvegardeFruit(){
@@ -23,54 +23,81 @@ class Stock{
     /*La méthode setItem() de l'interface Storage permet de passe la clé(fruit)/valeur(enregistrement fruit),les ajoute a l'emplacement de stockage,
     et met à jour la valeur si la clé existe déja.le storage prend uniquement en charge le stockage et la récupération des chaines pour se faire je sérialise la variable composite a l'aide de JSON.stringify(). */
     localStorage.setItem("fruit",JSON.stringify(this.fruit));
-  }
-
-//Methode ajouterFruit ajoute un fruit
-ajouterFruit(produit,qt){
-  /*rechFruit par find qui renvoie la valeur du premier élément trouvé dans le tableau qui respecte la condition donnée par la fonction de test passé en argument.Sinon,la valeur undefined est renvoyée. */
-  let rechFruit=this.fruit.find(l=>l.id==produit.id)
-  if(rechFruit!=undefined){
-    rechFruit.quantite=Math.floor(rechFruit.quantite)+Math.floor(qt);
-  }else{
-    //ajouter fruit dans la clé fruit
-    this.fruit.push(produit); 
-  }
-  /*savegarde sur la clé fruit*/
-  this.sauvegardeFruit();
-}
-
-retireFruit(produit,qt){
-  let rechFruit=this.fruit.find(e=>e.id==produit.id);
-  if(rechFruit!=undefined){
-    rechFruit.quantite=Math.floor(rechFruit.quantite)-Math.floor(qt);
-  }
-  this.sauvegardeFruit();           
-}
-
-//Afficher le stock
-AfficherStock(){
-  //Vider le select
-  const selectElement=document.getElementById("selecteur-fruit")
-  selectElement.innerHTML=''
-
-  //Récupérer la liste depuis le localStorage
-  var storedNames = JSON.parse(localStorage.getItem('fruit'));
-
-  // Vérifier si des données sont présentes dans le localStorage
-  if (storedNames && storedNames.length > 0) {
-    // Boucler sur chaque élément de la liste et l'ajouter à option
-    storedNames.forEach(function(name){
-      var option = document.createElement("option");
-      var x = document.getElementById("selecteur-fruit");
-      option.text = `nom : ${name.nom}  quantité : ${name.quantite} `;
-      x.appendChild(option);
-    }); 
   };
- } 
+
+  //Methode ajouterFruit ajoute un fruit
+  ajouterFruit(produit,qt){
+    /*rechFruit par find qui renvoie la valeur du premier élément trouvé dans le tableau qui respecte la condition donnée par la fonction de test passé en argument.Sinon,la valeur undefined est renvoyée. */
+    let rechFruit=this.fruit.find(l=>l.id==produit.id)
+    if(rechFruit!=undefined){
+      rechFruit.quantite=Math.floor(rechFruit.quantite)+Math.floor(qt);
+    }else{
+      //ajouter fruit dans la clé fruit
+      this.fruit.push(produit); 
+    };
+    /*savegarde sur la clé fruit*/
+    this.sauvegardeFruit();
+  };
+
+  retireFruit(produit,qt){
+    let rechFruit=this.fruit.find(e=>e.id==produit.id);
+    if(rechFruit!=undefined){
+      rechFruit.quantite=Math.floor(rechFruit.quantite)-Math.floor(qt);
+    };
+    this.sauvegardeFruit();           
+  };
+
+  //Afficher le stock
+  AfficherStock(){
+    //Vider le select
+    const selectElement=document.getElementById("selecteur-fruit")
+    selectElement.innerHTML=''
+
+    //Récupérer la liste depuis le localStorage
+    var storedNames = JSON.parse(localStorage.getItem('fruit'));
+
+    // Vérifier si des données sont présentes dans le localStorage
+    if (storedNames && storedNames.length > 0) {
+      // Boucler sur chaque élément de la liste et l'ajouter à option
+      storedNames.forEach(function(name){
+        var option = document.createElement("option");
+        var x = document.getElementById("selecteur-fruit");
+        option.text = `nom : ${name.nom}  quantité : ${name.quantite} `;
+        x.appendChild(option);
+      }); 
+    };
+  };
+
+
+/* recherche(valeurInput){
+  inputValeur=valeurInput;
+  /*La méthode statique Object.keys() renvoie un tableau de noms de propriétés énumérables à clé de chaîne de caractères d'un objet donné 
+  const rec=Object.keys(JSON.parse(localStorage.getItem("fruit")));
+  //La methode includes() des instances de tableau déterminer si un inclut une certaine valeur parmi ses participations,en retournant ou selon le cas.(true false)
+  //La méthode filter() des instances de tableau crée une une copie superficielle d'une parie d'un tableau donné,jusqu'aux seuls éléments du tableau donné qui réussissent le test implémenté par la fonction fournie.
+  const result = rec.filter((e) => e.includes(`${inputValue}`));
+  let a = JSON.stringify(result);
+  let p = JSON.parse(a);
+  let t = [p];
+  u = [];
+  t.forEach(function(z) { 
+      u.push(z);   
+  });
+  u.forEach(function(z) {
+    let index = 0;
+    while (index < z.length) {
+      let suggestions = document.getElementById("suggestion");
+      p = document.createElement("p");
+      p.textContent = `${z[index]}`;
+      let testID = suggestions.appendChild(p);
+      index++;
+    };
+  }); 
+ }*/
 }
 
 //Au chargement de l'application 
-$( document ).ready(function() {
+$(document).ready(function() {
 
   let stock=new Stock()
   stock.AfficherStock();
