@@ -42,8 +42,22 @@
 
 
                 sortieNom.textContent = `Fruit : ${fruit}`;
+                // pour afficher l'icone meme si texContent change
+                const iconNom = document.createElement("i");
+                iconNom.className = "fa-solid fa-apple-whole";
+                sortieNom.appendChild(iconNom);
+
                 sortieQuantite.textContent = `Quantité : + ${quantite}`;
+                // pour afficher l'icone meme si texContent change
+                const iconQuantite = document.createElement("i");
+                iconQuantite.className = "fa-solid fa-basket-shopping";
+                sortieQuantite.appendChild(iconQuantite);
+
                 resultatRecherche.textContent = `Stock total de ${fruit} : ${stock[fruit]}`;
+                // pour afficher l'icone meme si texContent change
+                const iconStock = document.createElement("i");
+                iconStock.className = "fa-solid fa-warehouse";
+                resultatRecherche.appendChild(iconStock);
 
                 mettreAJourAffichageStock();
 
@@ -67,7 +81,7 @@
                 const stock = recupererStock();
                 if (stock[fruit] && stock[fruit] >= quantite) {
                     stock[fruit] -= quantite;
-                    if (stock[fruit] === 0) delete stock[fruit];
+                    if (stock[fruit] === 0);
                     sauvegarderStock(stock);
 
                     sortieNom.textContent = `Fruit : ${fruit} `;
@@ -76,7 +90,7 @@
                     iconNom.className = "fa-solid fa-apple-whole";
                     sortieNom.appendChild(iconNom);
                     
-                    sortieQuantite.textContent = `Quantité : -${quantite} `;
+                    sortieQuantite.textContent = `Quantité : - ${quantite} `;
                     // pour afficher l'icone meme si texContent change
                     const iconQuantite = document.createElement("i");
                     iconQuantite.className = "fa-solid fa-basket-shopping";
@@ -87,6 +101,7 @@
                     const iconStock = document.createElement("i");
                     iconStock.className = "fa-solid fa-warehouse";
                     resultatRecherche.appendChild(iconStock);
+
                     
 
 
@@ -286,21 +301,27 @@
                 });
 
         const burgerIcon = document.getElementById('menuBurgerIcon');
-        const navMenu = document.getElementById('navMenuBurger');
+
+        const navMenuBurger = document.getElementById('navMenuBurger');
+        const overlay = document.getElementById('overlay');
         
-        burgerIcon.addEventListener('click', function() {
+        burgerIcon.addEventListener('click', () => {
             // Bascule la classe active pour l'animation de l'icône
-            this.classList.toggle('active');
+            burgerIcon.classList.toggle('active');
             
             // Bascule l'ouverture/fermeture du menu
-            navMenu.classList.toggle('ouvert');
+            navMenuBurger.classList.toggle('ouvert');
+
+            // Bascule actif pour l'overlay (assombris l'ecran)
+            overlay.classList.toggle('actif');
         });
 
-
-        
-        
-
-});
+        // Fermeture du menu en cliquant sur l'overlay
+        overlay.addEventListener('click', () => {
+            burgerIcon.classList.remove('active');
+            navMenuBurger.classList.remove('ouvert');
+            overlay.classList.remove('actif');
+        });
     
 
     
