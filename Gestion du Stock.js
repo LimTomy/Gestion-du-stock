@@ -74,7 +74,13 @@ class Stock{
     const rec=this.fruit;
     let a=rec.map(e=>e.nom)
     const result = a.filter((e) => e.includes(`${valeurInput}`));
-    console.log(result)
+    result.forEach(function(e){
+      let pElement=document.getElementById("a");
+      let p=document.createElement("p")
+      p.textContent=`${e}`;
+      pElement.appendChild(p)
+    })
+    
   }
 }
 
