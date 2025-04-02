@@ -301,6 +301,7 @@
                 });
 
         const burgerIcon = document.getElementById('menuBurgerIcon');
+
         const navMenuBurger = document.getElementById('navMenuBurger');
         const overlay = document.getElementById('overlay');
         
@@ -321,11 +322,6 @@
             navMenuBurger.classList.remove('ouvert');
             overlay.classList.remove('actif');
         });
-
-        
-        
-
-});
     
 
     

@@ -435,7 +435,6 @@ color: var(--couleur-secondaire);
 
 }
 
-
 /* Zone de saisie */
 .zone-saisie {
     display: flex;
@@ -891,6 +890,7 @@ font-size: 2rem;
 color: var(--couleur-secondaire);
 }
 
+
 .footer .nom-entreprise {
 color: var(--couleur-principale);
 
@@ -1094,14 +1094,14 @@ transform: translateY(-3px);
     
     .banniere, .conteneur-principal, .footer {
     height: auto;
+
     }
     
     .footer {
     padding: 4rem 2rem 2rem;
     margin-top: auto; 
     }
-    
-
+  
     .zone-saisie, .zone-details {
     width: 100% !important;
     margin: 0 0 2rem 0 !important; 
@@ -1334,6 +1334,7 @@ transform: translateY(-3px);
     .overlay.actif {
         visibility: visible;
         opacity: 1;
+
     }
 }
 
