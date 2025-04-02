@@ -1,5 +1,5 @@
- /* Variables globales */
- :root {
+/* Variables applicable à tout les éléments pour faciliter l'affectations des styles. Facilite les modifs*/
+:root {
     --couleur-principale: #2c3e50;
     --couleur-secondaire: #2ecc71;
     --couleur-fond: #ecf0f1;
@@ -8,7 +8,7 @@
     --couleur-pour-inversion: #d3c1af;
 }
 
-/* Styles globaux */
+/* Styles globaux (actif sauf changement a tout les élements) */
 * {
     margin: 0;
     padding: 0;
@@ -17,6 +17,7 @@
     font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 1px;
 }
+/*  */
 
 body {
     font-family: 'Arial', sans-serif;
@@ -30,16 +31,23 @@ body {
     overflow-x: hidden;
 }
 
+section {
+    min-height: 100vh;
+    width: 100%;
+    }
+
 /* Scrollbar styles */
 ::-webkit-scrollbar {
     width: 0.5rem;
 }
 
+/* Styles de la piste */
 ::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 6px;
 }
 
+/* Styles de la barre */
 ::-webkit-scrollbar-thumb {
     background: var(--couleur-secondaire);
     border-radius: 6px;
@@ -49,8 +57,32 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--couleur-principale);
 }
+/*  */
 
-/* En-tête */
+/* back to top */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background-color: var(--couleur-secondaire);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    }
+    .back-to-top:hover {
+    background-color: var(--couleur-principale);
+    color: var(--couleur-secondaire);
+}
+/*  */
+
+/* Header Styles */
 .en-tete {
     position: fixed;
     top: 0;
@@ -87,32 +119,11 @@ body {
     animation: saut 1s infinite ease-in-out;
 }
 
-@keyframes saut {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-1px);
-    }
-}
-
 .nom-entreprise {
     font-size: 2rem;
     font-weight: bold;
     color: var(--couleur-principale);
     animation: secoue 5s infinite;
-}
-
-@keyframes secoue {
-    0%, 100% {
-        transform: rotate(0);
-    }
-    25% {
-        transform: rotate(-3deg);
-    }
-    75% {
-        transform: rotate(3deg);
-    }
 }
 
 .doubleTon {
@@ -256,6 +267,68 @@ background: var(--couleur-principale);
 color: var(--couleur-secondaire);
 }
 
+
+
+
+/* Conteneur principal */
+.conteneur-principal {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    height: 100vh;
+    margin: 0;
+    min-height: 100vh;
+    padding: 2rem 0;
+    /* background: linear-gradient(180deg, var(--couleur-principale), var(--couleur-secondaire)); */
+
+}
+
+.conteneur-principal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(./bg_fruits.jpg) no-repeat center center;
+    /* background: linear-gradient(180deg, var(--couleur-principale), var(--couleur-secondaire)); */
+    background-size: cover;
+    z-index: -2;
+    opacity: 0.1;
+}
+
+.box{
+    align-items: center;
+    position: absolute;
+    top: 5rem;
+}
+
+.box input{
+    width: 0;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    transition: 0.8s;
+    background: transparent;
+
+}
+
+.box:hover input{
+    width: 400px;
+}
+
+.box input:focus{
+    width: 400px;
+}
+
+.box a .fas{
+    color:#2ecc71;
+    font-size: 18px ;
+}
+
 #suggestion {
     background-color: white;
     width: 88%;
@@ -308,57 +381,60 @@ color: var(--couleur-secondaire);
 
 }
 
-.menu-burger {
-display: none;
-font-size: 1.5rem;
-cursor: pointer;
-color: white;
-}
-
-@media (max-width: 768px) {
-.navigation {
-display: none;
-}
-
-.menu-burger {
-display: block;
-}
-
-.barre-recherche {
-    display: none;
-}
-}
 
 
-/* Conteneur principal */
-.conteneur-principal {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    height: 100vh;
-    margin: 0;
-    min-height: 100vh;
-    padding: 2rem 0;
-    /* background: linear-gradient(180deg, var(--couleur-principale), var(--couleur-secondaire)); */
-
-}
-
-.conteneur-principal::before {
-    content: '';
+#suggestionA {
+    background-color: white;
+    width: 80%;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* background: url(./bg_fruits.jpg) no-repeat center center; */
-    /* background: linear-gradient(180deg, var(--couleur-principale), var(--couleur-secondaire)); */
-    background-size: cover;
-    z-index: -2;
-    opacity: 0.1;
+    max-height: 200px;
+    top: 50%;
+    right: 10;
+    overflow-y: auto;
+    border-radius: 8px;
+    z-index: -1;
+    color: var(--couleur-texte);
+    text-align: center;
+    display: block;
+    border-radius: 0 0 20px 20px;
+    z-index: 1;
 }
+
+#suggestionA div {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--couleur-texte);
+    transition: background-color 0.3s ease;
+}
+
+#suggestionA div:hover {
+    background-color: var(--couleur-secondaire);
+    color: white;
+}
+
+#suggestionA ul {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+#suggestionA li {
+    cursor: pointer;
+    list-style: none;
+    padding: 0.5rem;
+    border-bottom: 0.5px solid var(--couleur-fond); 
+}
+
+#suggestionA li:hover {
+    background-color: #2ecc71;
+}
+
+#suggestionA li:first-of-type {
+    margin-top: 2rem;
+
+}
+
 
 /* Zone de saisie */
 .zone-saisie {
@@ -368,7 +444,7 @@ display: block;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    width: 50%;
+    width: 60%;
     padding: 40px;
     margin: 0 2rem;
 }
@@ -417,28 +493,6 @@ display: block;
     transform: translateY(-2px) scale(0.9);
     box-shadow: inset 0 0 0 30px rgba(52, 219, 113, 0.3);
 }
-
-/* back to top */
-.back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: none;
-    background-color: var(--couleur-secondaire);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 3.5rem;
-    height: 3.5rem;
-    font-size: 1.8rem;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    }
-    .back-to-top:hover {
-    background-color: var(--couleur-principale);
-    color: var(--couleur-secondaire);
-    }
 
 /* Zone des détails */
 .zone-details {
@@ -572,18 +626,7 @@ h2 {
     animation: icon 5s infinite linear;
 }
 
-@keyframes icon {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.8;
-        transform: translateY(-50%) scale(1.2);
-    }
-    100% {
-        opacity: 1;
-    }
-}
+
 
 .champ-saisie input::placeholder {
     font-size: 1.3rem;
@@ -643,7 +686,7 @@ top: 0;
 left: 0;
 width: 100%;
 height: 100%;
-/* background: url(./fruit_gif_piece.gif) no-repeat center center; */
+background: url(./fruit_gif_piece.gif) no-repeat center center;
 background-size: cover;
 z-index: -1;
 opacity: 0.15;
@@ -686,6 +729,7 @@ animation: fadeIn 1.5s ease-out;
 transform: translateY(-3px);
 box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
 }
+/*  */
 
 /* a-propos Section Styles */
 .a-propos {
@@ -746,8 +790,9 @@ font-size: 1.2rem;
 color: var(--couleur-texte);
 line-height: 1.6;
 }
+/*  */
 
-/* Styles pour la section fonctionnalites/App */
+/* Styles pour la section fonctionnalites */
 .app-fonctionnalites {
 padding: 6rem 2rem;
 background-color: rgba(255, 255, 255, 0.9);
@@ -810,75 +855,9 @@ color: var(--couleur-texte);
 font-size: 1.1rem;
 line-height: 1.6;
 }
+/*  */
 
-.footer .nom-entreprise {
-color: var(--couleur-principale);
-
-}
-
-.footer .social-liens {
-display: flex;
-justify-content: center;
-width: 80%;
-}
-
-.footer .social-liens i {
-color: var(--couleur-principale);
-
-}
-
-.footer .social-liens i:hover {
-color: var(--couleur-secondaire);
-
-}
-
-.footer  a  {
-display: flex;
-justify-content: center;
-align-items: center;
-width: 70%;
-text-decoration: none;
-
-}
-
-
-
-
-@keyframes fadeInDown {
-from {
-opacity: 0;
-transform: translateY(-20px);
-}
-to {
-opacity: 1;
-transform: translateY(0);
-}
-}
-
-@keyframes fadeInUp {
-from {
-opacity: 0;
-transform: translateY(20px);
-}
-to {
-opacity: 1;
-transform: translateY(0);
-}
-}
-
-section {
-min-height: 100vh;
-width: 100%;
-}
-
-.accueil {
-min-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-
+/* Footer Styles */
 .footer {
 background-color: white;
 color: var(--couleur-principale);
@@ -912,6 +891,36 @@ font-size: 2rem;
 color: var(--couleur-secondaire);
 }
 
+.footer .nom-entreprise {
+color: var(--couleur-principale);
+
+}
+
+.footer .social-liens {
+display: flex;
+justify-content: center;
+width: 80%;
+}
+
+.footer .social-liens i {
+color: var(--couleur-principale);
+
+}
+
+.footer .social-liens i:hover {
+color: var(--couleur-secondaire);
+
+}
+
+.footer  a  {
+display: flex;
+justify-content: center;
+align-items: center;
+width: 70%;
+text-decoration: none;
+
+}
+
 .footer-section h3 {
 color: var(--couleur-secondaire);
 margin-bottom: 1.5rem;
@@ -937,6 +946,14 @@ gap: 0.5rem;
 
 .footer-liens a:hover {
 color: var(--couleur-secondaire);
+}
+
+.footer-bas {
+text-align: center;
+padding-top: 2rem;
+margin-top: 2rem;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+
 }
 
 .contact-info p {
@@ -969,84 +986,121 @@ transition: all 0.3s;
 background: var(--couleur-secondaire);
 transform: translateY(-3px);
 }
+/*  */
 
-.footer-bas {
-text-align: center;
-padding-top: 2rem;
-margin-top: 2rem;
-border-top: 1px solid rgba(255, 255, 255, 0.1);
-
-}
-
-/* Pour les tablettes (écrans entre 768px et 1024px) */
-@media (max-width: 1024px) {
-* {
-    font-size: 1rem;
-}
-
-.zone-saisie, .zone-details, .zone-retrait {
-    width: 70%;
-}
-
-.banniere h1 {
-    font-size: 3rem;
-}
-
-.banniere .sous-titre {
-    font-size: 1.5rem;
-}
-
-.a-propos h2, .app-fonctionnalites h2 {
-    font-size: 2.5rem;
-}
-
-.a-propos-description, .section-description {
-    font-size: 1.3rem;
-}
-
-.a-propos-carte, .fonctionnalite-carte {
-    padding: 1.5rem;
-}
-
-.conteneur-principal {
-    flex-direction: column;
-    align-items: center;
-}
-
-.zone-details, .zone-saisie {
-    width: 90%;
-    margin: 1rem 0 1rem 0;        
-}
-
-/* Modifier la section conteneur-principal */
-.conteneur-principal {
-width: 100%;
-display: flex;
-flex-wrap: wrap; 
-justify-content: center;
-align-items: flex-start; 
-text-align: center;
-position: relative;
-padding: 100px 0 50px; 
-margin: 0;
-gap: 2rem; 
-}
-
-.banniere, .conteneur-principal, .footer {
-height: auto;
-}
-
-.footer {
-padding: 4rem 2rem 2rem;
-margin-top: auto; 
-}
-
-/* Ajustements responsive */
-@media (max-width: 768px) {
-    .conteneur-principal {
-    flex-direction: column;
-    padding: 80px 20px 30px; 
+/* Animations */
+@keyframes secoue {
+    0%, 100% {
+        transform: rotate(0);
     }
+    25% {
+        transform: rotate(-3deg);
+    }
+    75% {
+        transform: rotate(3deg);
+    }
+}
+
+@keyframes saut {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-1px);
+    }
+}
+
+@keyframes icon {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-50%) scale(1.2);
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+    opacity: 0;
+    transform: translateY(-20px);
+    }
+    to {
+    opacity: 1;
+    transform: translateY(0);
+    }
+}
+    
+    @keyframes fadeInUp {
+    from {
+    opacity: 0;
+    transform: translateY(20px);
+    }
+    to {
+    opacity: 1;
+    transform: translateY(0);
+    }
+}
+/*  */
+
+/* Responsive par @Media Query */
+@media (max-width: 1024px) {
+    * {
+        font-size: 1rem;
+    }
+    
+    .banniere h1 {
+        font-size: 3rem;
+    }
+    
+    .banniere .sous-titre {
+        font-size: 1.5rem;
+    }
+    
+    .a-propos h2, .app-fonctionnalites h2 {
+        font-size: 2.5rem;
+    }
+    
+    .a-propos-description, .section-description {
+        font-size: 1.3rem;
+    }
+    
+    .a-propos-carte, .fonctionnalite-carte {
+        padding: 1.5rem;
+    }
+    
+    .zone-details, .zone-saisie {
+        width: 90%;
+        margin: 1rem 0 1rem 0;        
+    }
+    
+    .conteneur-principal {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    align-items: flex-start; 
+    text-align: center;
+    position: relative;
+    padding: 100px 0 50px; 
+    margin: 0;
+    gap: 2rem; 
+    flex-direction: column;
+    padding: 5rem 1.5rem; 
+    }
+    
+    .banniere, .conteneur-principal, .footer {
+    height: auto;
+    }
+    
+    .footer {
+    padding: 4rem 2rem 2rem;
+    margin-top: auto; 
+    }
+    
 
     .zone-saisie, .zone-details {
     width: 100% !important;
@@ -1073,146 +1127,203 @@ margin-top: auto;
     .footer-section .conteneur-marque {
         justify-content: center;
     }
-}
-
-
-
-
-body {
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.en-tete {
-order: 1;
-width: 100%;
-background-color: rgba(255, 255, 255, 0.9);
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-padding: 1rem 0;
-}
-
-.banniere {
-order: 2;
-min-height: 100vh;
-display: flex;
-justify-content: center;
-align-items: center;
-}
-
-section {
-order: 3;
-min-height: 100vh;
-margin: auto !important;
-}
-
-.conteneur-principal {
-order: 4;
-}
-
-.footer {
-order: 5;
-margin-top: auto;
-text-align: center;
-
-}
-
-.footer-contenu, .footer-section, p {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center  ;
-}
-
-.footer .nom-entreprise {
-color: var(--couleur-principale);
-
-}
-
-#selecteur-fruit {
-font-size: 0.8rem;
-}
-
-
-
-}
-
-
-
-/* menu Burger icon */
-.menu-burger {
-display: flex;
-justify-content: center;
-align-items: center;
-width: 50px;
-height: 50px;
-background-color: transparent;
-color: #fff;
-cursor: pointer;
-position: fixed;
-right: 10px;
-z-index: 1000;
-border-radius: 5px;
-}
-
-.menu-burger i {
-font-size: 24px;
-}
-
-.menu-mobile {
-display: none;
-}
-
-/* Burger menu icon - visible sur petit ecran */
-@media (max-width: 768px) {
-.menu-burger {
-display: flex;
-}
-}
-
-/* cacher sur grand ecran */
-@media (min-width: 769px) {
-.menu-burger {
-display: none;
-}
-}
-
-
-
-.box{
+    
+    body {
+    display: flex;
     align-items: center;
-    position: absolute;
-    top: 5rem;
+    justify-content: center;
+    }
+    
+    .en-tete {
+    order: 1;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    }
+    
+    .banniere {
+    order: 2;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    
+    section {
+    order: 3;
+    min-height: 100vh;
+    margin: auto !important;
+    }
+    
+    .conteneur-principal {
+    order: 4;
+    }
+    
+    .footer {
+    order: 5;
+    margin-top: auto;
+    text-align: center;
+    }
+    
+    .footer-contenu, .footer-section, p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center  ;
+    }
+    
+    .footer .nom-entreprise {
+    color: var(--couleur-principale);
+    }
+    
+    #selecteur-fruit {
+    font-size: 0.8rem;
+    }
+
+    .navigation {
+    display: none;
+    }
+
+    #non {
+        display: none;
+    }
+
+    .box{
+        align-items: center;
+        position: absolute;
+        top: 2rem;
+    }
+    
+    .box input{
+        width: 0;
+        outline: none;
+        border: none;
+        font-weight: 500;
+        transition: 0.8s;
+        background: transparent;
+    }
+    
+    .box:hover input{
+        width: 280px;
+    }
+    
+    .box input:focus{
+        width: 280px;
+    }
+
+    #suggestion {
+        width: 280px;
+    }
+
+    .nav-menu-burger, .menu-burger-icon {
+        display: block;
+    }
+
+    /* Le conteneur de l'icône */
+
+    .menu-burger-icon {
+        position: absolute;
+        right: 2rem;
+        width: 30px;
+        height: 24px;
+        cursor: pointer;
+        z-index: 1001;
+    }
+    
+    /* Les barres du burger */
+    .burger-bar {
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        background-color: white;
+        border-radius: 2px;
+        transition: all 0.3s ease-in-out;
+    }
+    
+    /* Positionnement des barres burger */
+    .burger-bar:nth-child(1) {
+        top: 0;
+    }
+    
+    .burger-bar:nth-child(2) {
+        top: 10px;
+    }
+    
+    .burger-bar:nth-child(3) {
+        top: 20px;
+    }
+    
+    /* Animation des barres lorsque active */
+    .menu-burger-icon.active .burger-bar:nth-child(1) {
+        transform: translateY(10px) rotate(45deg);
+    }
+    
+    .menu-burger-icon.active .burger-bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-burger-icon.active .burger-bar:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+    
+    /* Menu de navigation burger */
+    .nav-menu-burger {
+        position: fixed;
+        right: -100%;
+        top: 100%;
+        width: 60%;
+        height: 100vh;
+        background-color: white;
+        transition: 0.3s ease-in-out;
+        z-index: 1000;
+        box-shadow: -3px 0 15px rgba(0,0,0,0.2);
+    }
+    
+    /* ouvrir le menu */
+    .nav-menu-burger.ouvert {
+        right: 0;
+    }
+    
+    .nav-menu-burger ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        text-align: center;    
+    }
+    
+    .nav-menu-burger li {
+        padding: 30px 20px;
+        border-bottom: 1px solid var(--couleur-fond);
+        font-size: 2rem;
+    }
+    
+    .nav-menu-burger a {
+        color: var(--couleur-principale);
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+    }
+    
+    .nav-menu-burger a:hover {
+        color: var(--couleur-secondaire);
+    }
+
+    .nav-menu-burger a:active {
+        color: var(--couleur-secondaire);
+    }
 }
 
-.box input{
-    width: 0;
-    outline: none;
-    border: none;
-    font-weight: 500;
-    transition: 0.8s;
-    background: transparent;
-
+    /* cacher sur ecran >= 1025px */
+    @media (min-width: 1025px) {
+    .nav-menu-burger, .menu-burger-icon {
+    display: none;
+    }
 }
-
-
-.box:hover input{
-    width: 400px;
-}
-
-.box input:focus{
-    width: 400px;
-}
-
-
-
-
-.box a .fas{
-    color:#2ecc71;
-    font-size: 18px ;
-}
-
-
+/*  */
 
 

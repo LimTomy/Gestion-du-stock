@@ -29,20 +29,37 @@
             </ul>
         </nav>
 
-        <a href="#app" id="non">
+        <a id="non">
         <div class="barre-recherche">
-             <input type="text" placeholder="Rechercher..." value=""> 
+             <input type="text" placeholder="Rechercher..." value="" id="rechercheA"> 
             <button type="button"><i class="fas fa-search"></i></button>
-            <!-- <div id="suggestion"></div> -->
+            <div id="suggestionA"></div>
         </div>
         </a>
 
         
-        </div>
+        <!-- </div>
             <div class="menu-burger">
                 <i class="fas fa-bars"></i>
             </div>
-        </nav>
+        </nav> -->
+
+        <div class="menu-burger-icon" id="menuBurgerIcon">
+            <div class="burger-bar"></div>
+            <div class="burger-bar"></div>
+            <div class="burger-bar"></div>
+        </div>
+    
+    <nav class="nav-menu-burger" id="navMenuBurger">
+        <ul>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#a-propos">À propos</a></li>
+            <li><a href="#fonctionalite">Fonctionnalités</a></li>
+            <li><a href="#footer">Contact</a></li>
+        </ul>
+    </nav>
+
+        
         
     </header>
 
@@ -128,7 +145,7 @@
         
             <input type="text" placeholder="Rechercher..." id="recherche" value="">
             <button type="button"><i class="fas fa-search"></i></button>
-            <div id="suggestion"></div>
+            <div id="suggestion" class="suggestion"></div>
         </div>
 
         <!-- Zone de saisie pour ajouter des fruits au stock -->

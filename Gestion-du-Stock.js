@@ -176,6 +176,41 @@
                 suggestion.appendChild(suggestionUl);
         })
 
+        ///
+
+        let suggestionA = document.getElementById('suggestionA')
+        suggestionA.innerHTML = "";
+
+        let inputA = document.getElementById('rechercheA')
+
+
+        inputA.addEventListener('input', () => {
+
+            
+
+            let inputValue = inputA.value.trim().toLowerCase();
+            let recup = Object.keys(recupererStock())
+            let filtre = recup.filter((e) => e.toLocaleLowerCase().includes(inputValue));
+
+            let suggestionUl = document.createElement("ul")
+            suggestionA.innerHTML = "";
+
+            filtre.forEach(el => {
+                if (inputValue !== "") {
+                    let suggestionLi = document.createElement("li");
+                    suggestionLi.textContent = el;
+
+                    suggestionUl.appendChild(suggestionLi);
+                } else {
+                    suggestionA.innerHTML = "";
+                } 
+                
+                });
+                
+                suggestionA.appendChild(suggestionUl);
+        })
+
+
         window.addEventListener('scroll', () => {
             if (window.scrollY > 10) {
                 document.querySelector('.en-tete').classList.add('scroll');
@@ -220,6 +255,48 @@
                     suggestion.innerHTML = "";
                 }
             });
+
+            ///
+
+            suggestionA.addEventListener('click', (ev) => {
+                if (ev.target.tagName === 'LI') {
+                    const clickText = ev.target.textContent;
+                    document.getElementById("champ-fruit").value = clickText;
+                    document.getElementById("champ-fruit-retrait").value = clickText;
+                    suggestionA.innerHTML = "";
+                    inputA.value = "";
+    
+                    const stock = recupererStock(); 
+                    const fruit = clickText;
+                    resultatRecherche.textContent = `Stock total de ${fruit} : ${stock[fruit]}`;
+                }
+            });
+    
+                // Cacher la suggestion au clic sur la page 
+                document.addEventListener('click', (eve) => {
+                    if (!suggestion.contains(eve.target) && eve.target !== input) {
+                        suggestion.innerHTML = "";
+                    }
+                });
+                // Cacher la suggestionA au clic sur la page 
+                document.addEventListener('click', (eve) => {
+                    if (!suggestionA.contains(eve.target) && eve.target !== input) {
+                        suggestionA.innerHTML = "";
+                    }
+                });
+
+        const burgerIcon = document.getElementById('menuBurgerIcon');
+        const navMenu = document.getElementById('navMenuBurger');
+        
+        burgerIcon.addEventListener('click', function() {
+            // Bascule la classe active pour l'animation de l'icône
+            this.classList.toggle('active');
+            
+            // Bascule l'ouverture/fermeture du menu
+            navMenu.classList.toggle('ouvert');
+        });
+
+
         
         
 
