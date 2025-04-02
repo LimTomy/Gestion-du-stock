@@ -361,7 +361,20 @@ h2 {
 
 /* display,gap,align-item,justify-content */
 
-
+.box1{
+    height: 30px;
+    display: flex;
+    cursor:pointer;
+    padding: 10px 20px;
+    background: rgb(255, 255, 255, 0.9);;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    /* absolute garde sa position sur tout les element  */
+    position: absolute;
+    /* gerer la position top/bottom(axe y) qui gere la position haut/bas et left/right gere gauche/droit  */
+    top: 36px;
+    left: -0.5px;
+}
 
 
 
