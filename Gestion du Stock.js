@@ -70,19 +70,24 @@ class Stock{
 
 
   recherche(valeurInput){
-    let inputValeur=valeurInput;
+    let inputValeur=valeurInput.toLowerCase();
     const rec=this.fruit;
     let a=rec.map(e=>e.nom)
-    const result = a.filter((e) => e.includes(`${valeurInput}`));
+    const result = a.filter((e) => e.includes(`${inputValeur}`));
     result.forEach(function(e){
       let pElement=document.getElementById("a");
-      let p=document.createElement("p")
+      let p=document.createElement("li")
       p.textContent=`${e}`;
       pElement.appendChild(p)
-    })
-    
-  }
+   })
+ }
 }
+
+$('#v').on("input",function(){
+  let valeur=$("#v").val();
+  let stock=new Stock()
+  let liste=stock.recherche(valeur)
+})
 
 //Au chargement de l'application 
 $(document).ready(function() {
