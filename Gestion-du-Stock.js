@@ -42,8 +42,22 @@
 
 
                 sortieNom.textContent = `Fruit : ${fruit}`;
+                // pour afficher l'icone meme si texContent change
+                const iconNom = document.createElement("i");
+                iconNom.className = "fa-solid fa-apple-whole";
+                sortieNom.appendChild(iconNom);
+
                 sortieQuantite.textContent = `Quantité : + ${quantite}`;
+                // pour afficher l'icone meme si texContent change
+                const iconQuantite = document.createElement("i");
+                iconQuantite.className = "fa-solid fa-basket-shopping";
+                sortieQuantite.appendChild(iconQuantite);
+
                 resultatRecherche.textContent = `Stock total de ${fruit} : ${stock[fruit]}`;
+                // pour afficher l'icone meme si texContent change
+                const iconStock = document.createElement("i");
+                iconStock.className = "fa-solid fa-warehouse";
+                resultatRecherche.appendChild(iconStock);
 
                 mettreAJourAffichageStock();
 
@@ -67,7 +81,7 @@
                 const stock = recupererStock();
                 if (stock[fruit] && stock[fruit] >= quantite) {
                     stock[fruit] -= quantite;
-                    if (stock[fruit] === 0) delete stock[fruit];
+                    if (stock[fruit] === 0);
                     sauvegarderStock(stock);
 
                     sortieNom.textContent = `Fruit : ${fruit} `;
@@ -76,7 +90,7 @@
                     iconNom.className = "fa-solid fa-apple-whole";
                     sortieNom.appendChild(iconNom);
                     
-                    sortieQuantite.textContent = `Quantité : -${quantite} `;
+                    sortieQuantite.textContent = `Quantité : - ${quantite} `;
                     // pour afficher l'icone meme si texContent change
                     const iconQuantite = document.createElement("i");
                     iconQuantite.className = "fa-solid fa-basket-shopping";
@@ -87,6 +101,7 @@
                     const iconStock = document.createElement("i");
                     iconStock.className = "fa-solid fa-warehouse";
                     resultatRecherche.appendChild(iconStock);
+
                     
 
 
@@ -176,6 +191,41 @@
                 suggestion.appendChild(suggestionUl);
         })
 
+        ///
+
+        let suggestionA = document.getElementById('suggestionA')
+        suggestionA.innerHTML = "";
+
+        let inputA = document.getElementById('rechercheA')
+
+
+        inputA.addEventListener('input', () => {
+
+            
+
+            let inputValue = inputA.value.trim().toLowerCase();
+            let recup = Object.keys(recupererStock())
+            let filtre = recup.filter((e) => e.toLocaleLowerCase().includes(inputValue));
+
+            let suggestionUl = document.createElement("ul")
+            suggestionA.innerHTML = "";
+
+            filtre.forEach(el => {
+                if (inputValue !== "") {
+                    let suggestionLi = document.createElement("li");
+                    suggestionLi.textContent = el;
+
+                    suggestionUl.appendChild(suggestionLi);
+                } else {
+                    suggestionA.innerHTML = "";
+                } 
+                
+                });
+                
+                suggestionA.appendChild(suggestionUl);
+        })
+
+
         window.addEventListener('scroll', () => {
             if (window.scrollY > 10) {
                 document.querySelector('.en-tete').classList.add('scroll');
@@ -220,6 +270,58 @@
                     suggestion.innerHTML = "";
                 }
             });
+
+            ///
+
+            suggestionA.addEventListener('click', (ev) => {
+                if (ev.target.tagName === 'LI') {
+                    const clickText = ev.target.textContent;
+                    document.getElementById("champ-fruit").value = clickText;
+                    document.getElementById("champ-fruit-retrait").value = clickText;
+                    suggestionA.innerHTML = "";
+                    inputA.value = "";
+    
+                    const stock = recupererStock(); 
+                    const fruit = clickText;
+                    resultatRecherche.textContent = `Stock total de ${fruit} : ${stock[fruit]}`;
+                }
+            });
+    
+                // Cacher la suggestion au clic sur la page 
+                document.addEventListener('click', (eve) => {
+                    if (!suggestion.contains(eve.target) && eve.target !== input) {
+                        suggestion.innerHTML = "";
+                    }
+                });
+                // Cacher la suggestionA au clic sur la page 
+                document.addEventListener('click', (eve) => {
+                    if (!suggestionA.contains(eve.target) && eve.target !== input) {
+                        suggestionA.innerHTML = "";
+                    }
+                });
+
+        const burgerIcon = document.getElementById('menuBurgerIcon');
+        const navMenuBurger = document.getElementById('navMenuBurger');
+        const overlay = document.getElementById('overlay');
+        
+        burgerIcon.addEventListener('click', () => {
+            // Bascule la classe active pour l'animation de l'icône
+            burgerIcon.classList.toggle('active');
+            
+            // Bascule l'ouverture/fermeture du menu
+            navMenuBurger.classList.toggle('ouvert');
+
+            // Bascule actif pour l'overlay (assombris l'ecran)
+            overlay.classList.toggle('actif');
+        });
+
+        // Fermeture du menu en cliquant sur l'overlay
+        overlay.addEventListener('click', () => {
+            burgerIcon.classList.remove('active');
+            navMenuBurger.classList.remove('ouvert');
+            overlay.classList.remove('actif');
+        });
+
         
         
 
